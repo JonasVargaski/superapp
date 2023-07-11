@@ -43,7 +43,6 @@ jobs:
 
           for branch in "${branches[@]}"; do
             git pull --rebase origin $branch
-            wait
           done
 
       # - name: Build and deploy
