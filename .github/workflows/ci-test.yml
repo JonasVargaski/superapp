@@ -23,7 +23,7 @@ jobs:
 
       - name: Check branch name
         run: |
-          if [ "$GITHUB_REF" != "test" ]; then
+          if [ "${GITHUB_REF##*/}" != "test" ]; then
             echo "This action will only run on the 'test' branch. Skipping..."
             return 0
           fi
