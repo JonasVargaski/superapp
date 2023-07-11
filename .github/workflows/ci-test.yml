@@ -33,7 +33,7 @@ jobs:
 
       - name: Force pull develop branch
         run: |
-          if [ "${{ github.event.inputs.reset }}" == "Y" ]; then
+          if [ "${{ github.event.inputs.reset }}" == "y" ]; then
             git fetch origin develop && git reset --hard origin/develop
           fi
 
