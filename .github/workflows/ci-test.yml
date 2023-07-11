@@ -20,7 +20,7 @@ jobs:
         run: |
           if [ "${{ github.ref }}" != "refs/heads/test" ]; then
             echo "This action will only run on the 'test' branch. Skipping..."
-            exit 0
+            return 0
           fi
 
       - name: Force pull develop branch
