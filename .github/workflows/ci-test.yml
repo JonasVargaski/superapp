@@ -37,5 +37,14 @@ jobs:
             git pull --rebase origin $branch
           done
 
+      - name: Show branch result
+        run: |
+          echo branch test contains:
+          echo origin/develop
+          branches=(${{ github.event.inputs.branches }})
+          for branch in "${branches[@]}"; do
+            echo origin/$branch
+          done
+
       # - name: Build and deploy
       #   run: ./deploy.sh
