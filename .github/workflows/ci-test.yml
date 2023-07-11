@@ -18,12 +18,9 @@ jobs:
         with:
           ref: test
 
-      - name: Checkout test branch
-        run: git fetch origin && git checkout test
-
       - name: Check branch name
         run: |
-          if [ "${{ github.ref }}" != "refs/heads/test" ]; then
+          if [ "${{ github.head_ref }}" != "test" ]; then
             echo "This action will only run on the 'test' branch. Skipping..."
             return 0
           fi
