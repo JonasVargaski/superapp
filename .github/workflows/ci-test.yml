@@ -2,6 +2,11 @@ name: Reset from "develop" and merge features
 
 on:
   workflow_dispatch:
+    inputs:
+      branches:
+        description: "Branches adicionais"
+        required: true
+        default: ""
 
 jobs:
   deploy:
