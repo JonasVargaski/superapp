@@ -5,7 +5,7 @@ on:
     inputs:
       branches:
         description: "Merge aditional branchs:"
-        required: true
+        required: false
         default: ""
 
 jobs:
