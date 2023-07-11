@@ -3,8 +3,12 @@ name: Reset branch "test" from "develop" and merge features
 on:
   workflow_dispatch:
     inputs:
+      reset:
+        description: "Force reset: (Y/N)"
+        required: true
+        default: "Y"
       branches:
-        description: "Merge aditional branchs:"
+        description: "Merge aditional branchs: (ENG-92 ENG-143)"
         required: false
         default: ""
 
@@ -27,7 +31,10 @@ jobs:
         run: git fetch origin && git checkout test
 
       - name: Force pull develop branch
-        run: git fetch origin develop && git reset --hard origin/develop
+        run: |
+          if [ "${{ github.event.inputs.reset }}" == "Y" ]; then
+            git fetch origin develop && git reset --hard origin/develop
+          fi
 
       - name: Pull additional branches
         run: |
