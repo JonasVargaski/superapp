@@ -18,12 +18,12 @@ jobs:
         with:
           ref: test
 
-      - name: Show current branch
-        run: echo running on branch ${GITHUB_REF##*/}
+      - name: Checkout test branch
+        run: git fetch origin && git checkout test
 
       - name: Check branch name
         run: |
-          if [ ${GITHUB_REF##*/} != "test" ]; then
+          if [ "${{ github.workspace }}" != "refs/heads/test" ]; then
             echo "This action will only run on the 'test' branch. Skipping..."
             return 0
           fi
