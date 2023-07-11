@@ -1,12 +1,12 @@
-name: Reset branch "test" from "develop" and merge features
+name: Prepare branch "test"
 
 on:
   workflow_dispatch:
     inputs:
       reset:
-        description: "Force reset: (Y/N)"
+        description: "Force reset: (y/n)"
         required: true
-        default: "Y"
+        default: "y"
       branches:
         description: "Merge aditional branchs: (ENG-92 ENG-143)"
         required: false
