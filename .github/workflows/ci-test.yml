@@ -18,6 +18,9 @@ jobs:
         with:
           ref: test
 
+      - name: Checkout test branch
+        run: git fetch origin && git checkout test
+
       - name: Check branch name
         run: |
           if [ "${{ github.ref }}" != "refs/heads/test" ]; then
