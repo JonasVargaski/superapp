@@ -18,6 +18,11 @@ jobs:
         with:
           ref: test
 
+      - name: Set Git identity
+        run: |
+          git config --global user.email "action.ci.test@github.com"
+          git config --global user.name "Action CI test"
+
       - name: Checkout test branch
         run: git fetch origin && git checkout test
 
