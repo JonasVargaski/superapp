@@ -26,13 +26,5 @@ jobs:
       - name: Force pull develop branch
         run: git fetch origin develop && git reset --hard origin/develop
 
-      - name: Pull additional branches
-        run: |
-          branches=(${{ github.event.inputs.branches }})
-
-          for branch in "${branches[@]}"; do
-            git pull origin $branch
-          done
-
       # - name: Build and deploy
       #   run: ./deploy.sh
