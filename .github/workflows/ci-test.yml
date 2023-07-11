@@ -39,7 +39,7 @@ jobs:
 
       - name: Show branch result
         run: |
-          echo branch test contains:
+          echo branch origin/test is updated with:
           echo origin/develop
           branches=(${{ github.event.inputs.branches }})
           for branch in "${branches[@]}"; do
