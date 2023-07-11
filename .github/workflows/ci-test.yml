@@ -26,6 +26,7 @@ jobs:
         run: |
           git config --global user.email "action.ci.test@github.com"
           git config --global user.name "Action CI"
+          git config --global pull.rebase true
 
       - name: Checkout test branch
         run: git fetch origin && git checkout test
