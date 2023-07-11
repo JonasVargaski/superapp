@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       reset:
-        description: "Force reset: (y/n)"
+        description: "Force reset from develop: (y/n)"
         required: true
         default: "y"
       branches:
@@ -29,7 +29,7 @@ jobs:
           git config --global pull.rebase false
 
       - name: Checkout test branch
-        run: git fetch origin && git checkout test
+        run: git fetch origin && git checkout test && git pull
 
       - name: Force pull develop branch
         run: |
@@ -43,6 +43,7 @@ jobs:
 
           for branch in "${branches[@]}"; do
             git pull --rebase origin $branch
+            wait
           done
 
       # - name: Build and deploy
