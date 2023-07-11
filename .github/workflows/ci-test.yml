@@ -1,0 +1,33 @@
+name: Reset from "develop" and merge features
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Check branch name
+        run: |
+          if [ "${{ github.ref }}" != "refs/heads/test" ]; then
+            echo "This action will only run on the 'test' branch. Skipping..."
+            exit 0
+          fi
+
+      - name: Force pull develop branch
+        run: git fetch --all && git reset --hard origin/develop
+
+      - name: Pull additional branches
+        run: |
+          branches=(${{ github.event.inputs.branches }})
+
+          for branch in "${branches[@]}"; do
+            git pull origin $branch
+          done
+
+      # - name: Build and deploy
+      #   run: ./deploy.sh
