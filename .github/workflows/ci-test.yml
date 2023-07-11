@@ -26,7 +26,7 @@ jobs:
 
       - name: Pull additional branches
         run: |
-          branches=("${{ github.event.inputs.branches }}")
+          branches=(${{ github.event.inputs.branches }})
 
           for branch in "${branches[@]}"; do
             git pull origin $branch
