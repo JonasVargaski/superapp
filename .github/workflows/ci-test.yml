@@ -1,10 +1,10 @@
-name: Reset from "develop" and merge features
+name: Reset branch "test" from "develop" and merge features
 
 on:
   workflow_dispatch:
     inputs:
       branches:
-        description: "Branches adicionais"
+        description: "Merge aditional branchs:"
         required: true
         default: ""
 
@@ -18,10 +18,24 @@ jobs:
         with:
           ref: test
 
+      - name: Configurar opções do combobox
+        id: select_option
+        run: |
+          echo "::set-output name=options::opção1 opção2 opção3"
+
+      - name: Selecionar opção
+        id: selected_option
+        run: |
+          echo "::set-output name=selected::$INPUT_BRANCH"
+
+      - name: Exibir opção selecionada
+        run: |
+          echo "Opção selecionada: ${{ steps.selected_option.outputs.selected }}"
+
       - name: Set Git identity
         run: |
           git config --global user.email "action.ci.test@github.com"
-          git config --global user.name "Action CI test"
+          git config --global user.name "Action CI"
 
       - name: Checkout test branch
         run: git fetch origin && git checkout test
@@ -37,14 +51,4 @@ jobs:
             git pull --rebase origin $branch
           done
 
-      - name: Show branch result
-        run: |
-          echo branch origin/test is updated with:
-          echo origin/develop
-          branches=(${{ github.event.inputs.branches }})
-          for branch in "${branches[@]}"; do
-            echo origin/$branch
-          done
-
       # - name: Build and deploy
-      #   run: ./deploy.sh
