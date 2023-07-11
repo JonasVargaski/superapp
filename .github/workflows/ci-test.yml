@@ -18,20 +18,6 @@ jobs:
         with:
           ref: test
 
-      - name: Configurar opções do combobox
-        id: select_option
-        run: |
-          echo "::set-output name=options::opção1 opção2 opção3"
-
-      - name: Selecionar opção
-        id: selected_option
-        run: |
-          echo "::set-output name=selected::$INPUT_BRANCH"
-
-      - name: Exibir opção selecionada
-        run: |
-          echo "Opção selecionada: ${{ steps.selected_option.outputs.selected }}"
-
       - name: Set Git identity
         run: |
           git config --global user.email "action.ci.test@github.com"
