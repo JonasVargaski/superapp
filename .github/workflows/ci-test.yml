@@ -24,7 +24,7 @@ jobs:
           fi
 
       - name: Force pull develop branch
-        run: git fetch --all && git reset --hard origin/develop
+        run: git fetch origin develop && git reset --hard origin/develop
 
       - name: Pull additional branches
         run: |
