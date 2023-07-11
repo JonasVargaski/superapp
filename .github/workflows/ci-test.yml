@@ -21,13 +21,6 @@ jobs:
       - name: Checkout test branch
         run: git fetch origin && git checkout test
 
-      - name: Check branch name
-        run: |
-          if [ "${{ github.workspace }}" != "refs/heads/test" ]; then
-            echo "This action will only run on the 'test' branch. Skipping..."
-            return 0
-          fi
-
       - name: Force pull develop branch
         run: git fetch origin develop && git reset --hard origin/develop
 
