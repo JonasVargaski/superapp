@@ -105,7 +105,7 @@ export default async function Home() {
               {options.map((x) => (
                 <div
                   key={x.title}
-                  className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:text-accent-foreground hover:cursor-pointer"
+                  className="-mx-2 flex items-start space-x-4 rounded-md p-2 transition-all hover:bg-accent hover:cursor-pointer"
                 >
                   {x.icon}
                   <div className="space-y-1">

@@ -6,7 +6,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "SuperApp",
-  description: "Compilado de ideias para apps",
+  description: "Compilado de utilitários",
 };
 
 export default function RootLayout({

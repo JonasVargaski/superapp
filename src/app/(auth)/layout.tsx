@@ -1,5 +1,6 @@
 import { Icons } from "@/components/icons";
-import { LightbulbIcon } from "lucide-react";
+import Image from "next/image";
+import logo from "../../../public/superapp-logo-light.png";
 
 export const metadata = {
   title: "Autenticação",
@@ -17,22 +18,39 @@ export default function AuthenticationLayout({
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r md:flex">
           <div className="absolute inset-0 bg-zinc-900" />
 
-          <div className="relative z-20 flex items-center text-lg font-medium">
-            <LightbulbIcon className="mr-2 h-6 w-6 text-yellow-500" /> SuperApp
+          <div className="relative z-20">
+            <Image src={logo} alt="logo" priority width={200} />
           </div>
+
           <div className="relative z-20 mt-auto">
             <blockquote className="space-y-2">
               <p className="text-lg">
-                SuperApp é um site prático que reúne vários recursos úteis para
-                simplificar seu dia-a-dia. Tudo isso em um único lugar, para que
-                você possa gerenciar suas tarefas pessoais de forma eficiente.
+                SuperApp é um site que reúne vários recursos em um único lugar,
+                para que você possa gerenciar suas automações de forma
+                eficiente.
               </p>
               <footer className="text-sm flex flex-col items-end gap-1 pt-2">
                 <p>Desenvolvido por: Jonas Vargaski</p>
-                <b className="flex items-center text-gray-200">
-                  <Icons.WhatsApp className="mr-2 h-5 w-5 text-green-600" />
-                  (48) 99906-5651
-                </b>
+                <div className="flex items-center mt-1 gap-3">
+                  <a
+                    href="https://www.linkedin.com/in/jonasvargaski/"
+                    target="_blank"
+                  >
+                    <Icons.Linkedin className="h-6 w-6" />
+                  </a>
+                  <a
+                    href="https://www.instagram.com/jonasvargaski/"
+                    target="_blank"
+                  >
+                    <Icons.Instagram className="h-6 w-6" />
+                  </a>
+                  <a
+                    href="https://wa.me/5548999065651?text=Olá! Vim através do site superapp."
+                    target="_blank"
+                  >
+                    <Icons.WhatsApp className="h-6 w-6 text-green-600" />
+                  </a>
+                </div>
               </footer>
             </blockquote>
           </div>
