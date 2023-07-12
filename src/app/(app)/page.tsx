@@ -72,7 +72,7 @@ export default async function Home() {
   const user = await getCurrentUser();
   const text = "Lorem ipsum dolor sit amet consectetur.";
   return (
-    <div className="container">
+    <div className="container mt-6">
       Homeee
       <p className="mt-3 rounded-sm border p-3">{JSON.stringify(user ?? {})}</p>
       <div>
