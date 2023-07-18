@@ -37,4 +37,15 @@ jobs:
             git fetch origin develop && git reset --hard origin/develop
           fi
 
+      - name: Pull additional branches
+        run: |
+          branches=(${{ github.event.inputs.branches }})
+
+          for branch in "${branches[@]}"; do
+            git pull --rebase origin $branch
+          done
+
+      - name: Push remote branch test
+        run: git push --set-upstream origin test
+
       # - name: Build and deploy
