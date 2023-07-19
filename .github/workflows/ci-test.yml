@@ -45,10 +45,7 @@ jobs:
             git pull --rebase origin $branch
           done
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: origin/test
+      - name: Push remote branch test
+        run: git push --set-upstream origin test
 
       # - name: Build and deploy
