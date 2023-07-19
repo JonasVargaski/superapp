@@ -15,14 +15,15 @@ on:
 jobs:
   prepare-test:
     runs-on: ubuntu-latest
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
+      - uses: actions/checkout@v3
+      - uses: fregante/setup-git-user@v2
+
       - name: Checkout repository
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        uses: actions/checkout@v2
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ref: test
 
       - name: Set Git identity
@@ -48,12 +49,12 @@ jobs:
             git pull --rebase origin $branch
           done
 
-      - name: Push remote branch test
+            uses: ad-m/github-push-action@master
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
         with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: git push
-        # run: git push --set-upstream origin test
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: origin/test
 
       # - name: Build and deploy
