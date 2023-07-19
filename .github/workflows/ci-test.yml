@@ -18,7 +18,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
         with:
           ref: test
 
@@ -30,6 +30,14 @@ jobs:
 
       - name: Checkout test branch
         run: git fetch origin && git checkout test && git pull
+
+      - name: Check if it's on the test branch
+        run: |
+          current_branch=$(git branch --show-current)
+          if [[ "$current_branch" != "test" ]]; then
+            echo "Action will be ignored as current branch is not 'test'"
+            exit 0
+          fi
 
       - name: Force pull develop branch
         run: |
@@ -47,5 +55,3 @@ jobs:
 
       - name: Push remote branch test
         run: git push --set-upstream origin test
-
-      # - name: Build and deploy
