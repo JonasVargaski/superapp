@@ -47,7 +47,7 @@ jobs:
 
       - name: Push remote branch test
         env:
-          GITHUB_TOKEN: ${{ secrets.ACTION_TEST_ENVIRONMENT }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: git push --set-upstream origin test
 
       # - name: Build and deploy
