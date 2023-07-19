@@ -33,7 +33,7 @@ jobs:
           current_branch=$(git branch --show-current)
           if [[ "$current_branch" != "tesdt" ]]; then
             echo "Action will be ignored as current branch is not 'test'"
-            exit 0
+            exit 1
           fi
 
       - name: Force pull develop branch
