@@ -46,6 +46,9 @@ jobs:
           done
 
       - name: Push remote branch test
-        run: git push --set-upstream origin test
+        uses: devops-infra/action-commit-push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          commit_message: "Sync with branches: ${{ github.event.inputs.branches }}"
 
       # - name: Build and deploy
