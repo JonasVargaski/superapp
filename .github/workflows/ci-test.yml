@@ -15,8 +15,6 @@ on:
 jobs:
   prepare-test:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     steps:
       - name: Checkout repository
@@ -46,8 +44,6 @@ jobs:
           for branch in "${branches[@]}"; do
             git pull --rebase origin $branch
           done
-
-            uses: ad-m/github-push-action@master
 
       - name: Push changes
         uses: ad-m/github-push-action@master
