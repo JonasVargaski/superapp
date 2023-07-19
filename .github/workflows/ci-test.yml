@@ -38,8 +38,9 @@ jobs:
 
       - name: Force pull develop branch
         run: |
+          git fetch origin
           if [ "${{ github.event.inputs.reset }}" == "y" ]; then
-            git fetch origin develop && git reset --hard origin/develop
+            git reset --hard origin/develop
           fi
 
       - name: Pull additional branches
