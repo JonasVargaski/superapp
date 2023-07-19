@@ -28,8 +28,13 @@ jobs:
           git config --global user.name "Action CI"
           git config --global pull.rebase false
 
-      - name: Checkout test branch
-        run: git fetch origin && git checkout test && git pull
+      - name: Check if it's on the test branch
+        run: |
+          current_branch=$(git branch --show-current)
+          if [[ "$current_branch" != "test" ]]; then
+            echo "Action will be ignored as current branch is not 'test'"
+            exit 0
+          fi
 
       - name: Force pull develop branch
         run: |
