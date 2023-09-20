@@ -37,5 +37,6 @@ export default withAuth(
 );
 
 export const config = {
-  matcher: ["/((?!api|public).*)"],
+  // matcher: ["/((?!api|public).*)"],
+  matcher: [],
 };

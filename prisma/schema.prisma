@@ -10,9 +10,75 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AccountRole {
+  VIEW_DASHBOARD
+}
+
+enum ProviderType {
+  google
+  facebook
+}
+
 model User {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  password String
+  id             String  @id @default(uuid())
+  first_name     String
+  last_name      String
+  full_name      String
+  email          String  @unique
+  password_hash  String
+  password_reset String?
+  avatar_url     String?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user_account            UserAccount[]
+  authentication_provider AuthenticationProvider[]
+
+  @@map("users")
+}
+
+model AuthenticationProvider {
+  id            String       @id @default(uuid())
+  provider_key  String
+  provider_type ProviderType
+  user_id       String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  user       User     @relation(fields: [user_id], references: [id])
+
+  @@map("authentication_providers")
+}
+
+model Account {
+  id   String @id @default(uuid())
+  name String
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user_account UserAccount[]
+
+  @@map("accounts")
+}
+
+model UserAccount {
+  id                  String        @id @default(uuid())
+  user_id             String
+  account_id          String
+  roles               AccountRole[]
+  notifications       Boolean       @default(true)
+  comunication_emails Boolean       @default(true)
+  verified            Boolean       @default(false)
+  time_zone           String        @default("America/Sao_Paulo")
+  last_accessed       DateTime      @default(now())
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  user    User    @relation(fields: [user_id], references: [id])
+  account Account @relation(fields: [account_id], references: [id])
+
+  @@map("user_accounts")
 }

@@ -3,9 +3,9 @@ import { hash } from "bcryptjs";
 
 const prisma = new PrismaClient();
 
-async function main() {
-  const password = await hash("password123", 12);
-  const user = await prisma.user.upsert({
+async function execute() {
+  const password = await hash("password123", 4);
+  await prisma.user.upsert({
     where: { email: "admin@admin.com" },
     update: {},
     create: {
@@ -14,9 +14,8 @@ async function main() {
       password,
     },
   });
-  console.log({ user });
 }
-main()
+execute()
   .then(() => prisma.$disconnect())
   .catch(async (e) => {
     console.error(e);

@@ -25,16 +25,30 @@ export const authOptions: NextAuthOptions = {
 
         const user = await prisma.user.findUnique({
           where: { email: credentials.email },
+          include: {
+            user_account: {
+              select: {
+                account_id: true,
+                roles: true,
+                time_zone: true,
+                verified: true,
+              },
+            },
+          },
         });
 
-        if (!user || !(await compare(credentials.password, user.password)))
+        console.log(user);
+        if (!user || !(await compare(credentials.password, user.password_hash)))
           throw new Error("invalid credentials");
 
         return {
           id: user.id,
           email: user.email,
-          name: user.name,
-          roles: {},
+          name: user.full_name,
+          roles: user.user_account[0].roles.reduce((acc, cur) => {
+            acc[cur] = true;
+            return acc;
+          }, {} as Record<string, boolean>),
         };
       },
     }),

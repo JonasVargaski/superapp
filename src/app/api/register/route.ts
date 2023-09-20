@@ -17,12 +17,45 @@ export async function POST(req: Request) {
     const { name, email, password } = schema.parse(await req.json());
     const password_hash = await hash(password, 4);
 
+    const [first_name, last_name] = name.split(" ");
+
     const user = await prisma.user.create({
-      data: { name, email, password: password_hash },
+      data: {
+        first_name,
+        last_name,
+        email,
+        password_hash,
+        full_name: name,
+        user_account: {
+          create: {
+            account: {
+              create: {
+                name: `account-${first_name}`,
+              },
+            },
+          },
+        },
+      },
+      select: {
+        id: true,
+        user_account: {
+          select: {
+            id: true,
+          },
+        },
+      },
+    });
+
+    await prisma.userAccount.create({
+      data: {
+        account_id: user.user_account[0].id,
+        user_id: user.id,
+        roles: ["VIEW_DASHBOARD"],
+      },
     });
 
     return NextResponse.json({
-      user: { name: user.name, email: user.email },
+      user: { ...user, password_hash: undefined, password_reset: undefined },
     });
   } catch (error: any) {
     return new NextResponse(
